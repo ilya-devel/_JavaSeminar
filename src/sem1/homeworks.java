@@ -1,8 +1,6 @@
 package sem1;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class homeworks {
     public static void main(String[] args) {
@@ -13,7 +11,7 @@ public class homeworks {
         int[] tmp2 = {2, 5, 6};
         merge(tmp1, 3, tmp2, 3);
         System.out.println(Arrays.toString(tmp1));
-        System.out.println(reverseWords("the sky is blue"));
+        System.out.println(reverseWords("the sky   is blue"));
         System.out.println(isPalindrome("A man, a plan, a canal: Panama"));
     }
 
@@ -43,16 +41,14 @@ public class homeworks {
     }
 
     public static void merge(int[] nums1, int m, int[] nums2, int n) {
-        for (int i = 0; i < n; i++) {
-            nums1[i + m] = nums2[i];
-        }
+        if (n >= 0) System.arraycopy(nums2, 0, nums1, m, n);
         Arrays.sort(nums1);
     }
 
     public static String reverseWords(String s) {
         StringBuilder sb = new StringBuilder();
         String[] tmp = s.split(" ");
-        for (int i = tmp.length - 1; i >= 0; i--) if (tmp[i].trim() != "") sb.append(tmp[i] + ' ');
+        for (int i = tmp.length - 1; i >= 0; i--) if (!tmp[i].trim().equals("")) sb.append(tmp[i]).append(' ');
         return sb.toString().trim();
     }
 

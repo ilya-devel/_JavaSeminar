@@ -7,28 +7,42 @@ import java.util.List;
 
 public class tsk {
     public static void main(String[] args) {
-//        Замерить добавление 10000 элементов в начало ArrayList, в начало LinkedList
+// Замерить добавление 10000 элементов в начало ArrayList, в начало LinkedList
         getTimeArray();
         getTimeLinked();
-//        Создайте массив с “сырым типом”, добавьте туда разные типы данных. Удалите только числа.
+        System.out.println();
+// Создайте массив с “сырым типом”, добавьте туда разные типы данных. Удалите только числа.
         ArrayList<Object> lst = new ArrayList<>();
         lst.add(1);
         lst.add("adfa");
         lst.add(1);
         lst.add("adfjla");
         delNumInArray(lst);
-// Создайте массив String[]. Из него получите ArrayList<String> используйте метод Arrays.asList. Попробуйте в получившийся ArrayList<String> добавить новую строку, что произойдет?
+        System.out.println();
+// Создайте массив String[]. Из него получите ArrayList<String> используйте метод Arrays.asList.
+// Попробуйте в получившийся ArrayList<String> добавить новую строку, что произойдет?
         checkArrayList();
+        System.out.println();
 // На вход приходят два ArrayList<Integer> напишите метод, который проверяет два массива на равенство.
-        checkTwoArrayLst();
-// На вход методу приходят два ArrayList<Integer> и целое число num. Проверьте, что число num встречается в обоих массивах одинаковое кол-во раз.
-        List<Integer> lst1 = Arrays.asList(3, 2, 3, 4, 5, 6, 7);
-        List<Integer> lst2 = Arrays.asList(1, 2, 3, 2, 3, 6, 9, 7);
-        checkValueInArray(lst1, lst2, 2);
-// На вход приходит ArrayList<Integer>. Отсортируйте в нем только четные числа. Пример: [10, 4, 5, 6, 7, 2, 2, 9] -> [2, 2, 5, 4, 7, 6, 10, 9]
+        List<Integer> lst1 = Arrays.asList(1, 2, 3);
+        List<Integer> lst2 = Arrays.asList(1, 2, 3);
+        checkTwoArrayLst(lst1, lst2);
+        System.out.println();
+// На вход методу приходят два ArrayList<Integer> и целое число num.
+// Проверьте, что число num встречается в обоих массивах одинаковое кол-во раз.
+        lst1 = Arrays.asList(3, 2, 3, 4, 5, 6, 7);
+        lst2 = Arrays.asList(1, 2, 3, 2, 3, 6, 9, 7);
+        checkValueInArray(lst1, lst2, 3);
+        System.out.println();
+// На вход приходит ArrayList<Integer>. Отсортируйте в нем только четные числа.
+// Пример: [10, 4, 5, 6, 7, 2, 2, 9] -> [2, 2, 5, 4, 7, 6, 10, 9]
         ArrayList<Integer> sortLst = new ArrayList<>(Arrays.asList(10, 4, 5, 6, 7, 2, 2, 9, 13, 66, 71, 32));
         sortEvenValueInArray(sortLst);
-        System.out.println(sortLst);
+        System.out.printf("Список после сортировки чётных чисел: %s\n", sortLst);
+        System.out.println();
+// На вход приходт ArrayList<Integer> удалите из него четные числа (на итератор)
+        removeEvenNums(sortLst);
+        System.out.printf("Список после удаления чётных чисел: %s", sortLst);
     }
 
     public static void getTimeArray() {
@@ -38,7 +52,8 @@ public class tsk {
             tmp.add(0, i);
         }
         long fin = System.currentTimeMillis();
-        System.out.println(fin - start);
+        System.out.printf("Время затраченное на создание списка ArrayList размером %d элементов, составило %d мс\n",
+                tmp.size(), fin - start);
     }
 
     public static void getTimeLinked() {
@@ -48,7 +63,8 @@ public class tsk {
             tmp.add(0, i);
         }
         long fin = System.currentTimeMillis();
-        System.out.println(fin - start);
+        System.out.printf("Время затраченное на создание списка LinkedList размером %d элементов, составило %d мс\n",
+                tmp.size(), fin - start);
     }
 
     public static void delNumInArray(ArrayList<Object> lst) {
@@ -70,15 +86,9 @@ public class tsk {
         System.out.printf("Change = %s\n", chgeLst);
     }
 
-    public static void checkTwoArrayLst() {
-        ArrayList<Integer> lst1 = new ArrayList<>();
-        ArrayList<Integer> lst2 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            lst1.add(i);
-            lst2.add(i);
-        }
-        System.out.println(lst1 == lst2);
-        System.out.println(lst1.equals(lst2));
+    public static void checkTwoArrayLst(List<Integer> lst1, List<Integer> lst2) {
+        System.out.printf("Проверка через обычное сравнение == (не корректно для ссылочных типов): %b\n", lst1 == lst2);
+        System.out.printf("Проверка через метод equals (корректно для ссылочных типов): %b\n", lst1.equals(lst2));
     }
 
     public static void checkValueInArray(List<Integer> lst1, List<Integer> lst2, int val) {
@@ -103,9 +113,15 @@ public class tsk {
                     }
                 }
                 tmp = lst.get(i);
-                lst.set(i,lst.get(ind));
+                lst.set(i, lst.get(ind));
                 lst.set(ind, tmp);
             }
+        }
+    }
+
+    public static void removeEvenNums(List<Integer> lst) {
+        for (int i = lst.size() - 1; i >= 0; i--) {
+            if (lst.get(i) % 2 == 0) lst.remove(i);
         }
     }
 }

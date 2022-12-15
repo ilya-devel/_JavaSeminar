@@ -8,8 +8,8 @@ import java.util.List;
 public class tsk {
     public static void main(String[] args) {
 // Замерить добавление 10000 элементов в начало ArrayList, в начало LinkedList
-        getTimeArray();
-        getTimeLinked();
+//        getTimeArray();
+//        getTimeLinked();
         System.out.println();
 // Создайте массив с “сырым типом”, добавьте туда разные типы данных. Удалите только числа.
         ArrayList<Object> lst = new ArrayList<>();
@@ -41,8 +41,9 @@ public class tsk {
         System.out.printf("Список после сортировки чётных чисел: %s\n", sortLst);
         System.out.println();
 // На вход приходт ArrayList<Integer> удалите из него четные числа (на итератор)
-        removeEvenNums(sortLst);
-        System.out.printf("Список после удаления чётных чисел: %s", sortLst);
+        ArrayList<Integer> sortLst2 = new ArrayList<>(Arrays.asList(2, 2, 2, 2, 3, 4, 4, 5));
+        removeEvenNums(sortLst2);
+        System.out.printf("Список после удаления чётных чисел: %s", sortLst2);
     }
 
     public static void getTimeArray() {

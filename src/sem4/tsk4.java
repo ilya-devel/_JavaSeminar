@@ -3,6 +3,7 @@ package sem4;
 import java.util.*;
 
 public class tsk4 {
+
     public static void main(String[] args) {
         System.out.println("\n71. Simplify Path");
         System.out.println(simplifyPath("/a/./b/../../c/"));
@@ -126,37 +127,43 @@ public class tsk4 {
     }
 
     public static int[][] updateMatrix(int[][] mat) {
-        int[][] steps = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-        for (int y = 0; y < mat.length; y++) {
-            for (int x = 0; x < mat[y].length; x++) {
-                if (mat[y][x] == 1) {
-                    ArrayDeque<int[]> nextPos = new ArrayDeque<>();
-                    int count = 0;
-                    nextPos.add(new int[] {y, x});
-                    while (!(nextPos.isEmpty())) {
-                        int[] curPos = nextPos.pop();
-                        if (mat[curPos[0]][curPos[1]] == 0) break;
-                        for (int[] step: steps) {
-                            int posY = curPos[0] + step[0];
-                            int posX = curPos[1] + step[1];
-                            if (posY >= 0 && posY < mat.length && posX >= 0 && posX < mat[posY].length) {
-                                nextPos.add(new int[] {posY, posX});
-                            }
-                        }
-                        count++;
-                    }
-                    mat[y][x] = count;
+        int m = mat.length;
+        int n = mat[0].length;
+
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 0) {
+                    queue.offer(new int[]{i, j});
+                } else {
+                    mat[i][j] = Integer.MAX_VALUE;
                 }
             }
         }
+
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        while (!queue.isEmpty()) {
+            int[] cell = queue.poll();
+            for (int[] d : dirs) {
+                int r = cell[0] + d[0];
+                int c = cell[1] + d[1];
+                if (r < 0 || r >= m || c < 0 || c >= n ||
+                        mat[r][c] <= mat[cell[0]][cell[1]] + 1) continue;
+                queue.add(new int[]{r, c});
+                mat[r][c] = mat[cell[0]][cell[1]] + 1;
+            }
+        }
+
         return mat;
     }
-    public static void showMap (int[][] map) {
-        for (int[] row: map) {
-            for (int col: row) {
+
+    public static void showMap(int[][] map) {
+        for (int[] row : map) {
+            for (int col : row) {
                 System.out.printf("%d\t", col);
             }
-            System.out.println();;
+            System.out.println();
         }
     }
 }

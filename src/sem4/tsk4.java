@@ -52,9 +52,10 @@ public class tsk4 {
                 {0, 0, 0},
                 {0, 1, 0},
                 {1, 1, 1}};
-//        System.out.println(updateMatrix(mat1));
-        int[][] newMap = updateMatrix(mat2);
-        showMap(newMap);
+        int[][] newMap1 = updateMatrix(mat1);
+        int[][] newMap2 = updateMatrix(mat2);
+        showMap(newMap1);
+        showMap(newMap2);
     }
 
     public static String simplifyPath(String path) {
@@ -127,28 +128,28 @@ public class tsk4 {
     }
 
     public static int[][] updateMatrix(int[][] mat) {
-        int m = mat.length;
-        int n = mat[0].length;
+        int colLen = mat.length;
+        int rowLen = mat[0].length;
 
         Queue<int[]> queue = new LinkedList<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i = 0; i < colLen; i++) {
+            for (int j = 0; j < rowLen; j++) {
                 if (mat[i][j] == 0) {
-                    queue.offer(new int[]{i, j});
+                    queue.add(new int[]{i, j});
                 } else {
                     mat[i][j] = Integer.MAX_VALUE;
                 }
             }
         }
 
-        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        int[][] steps = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
         while (!queue.isEmpty()) {
             int[] cell = queue.poll();
-            for (int[] d : dirs) {
-                int r = cell[0] + d[0];
-                int c = cell[1] + d[1];
-                if (r < 0 || r >= m || c < 0 || c >= n ||
+            for (int[] step : steps) {
+                int r = cell[0] + step[0];
+                int c = cell[1] + step[1];
+                if (r < 0 || r >= colLen || c < 0 || c >= rowLen ||
                         mat[r][c] <= mat[cell[0]][cell[1]] + 1) continue;
                 queue.add(new int[]{r, c});
                 mat[r][c] = mat[cell[0]][cell[1]] + 1;

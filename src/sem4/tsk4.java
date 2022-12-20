@@ -42,6 +42,7 @@ public class tsk4 {
         root2.right.right = new TreeNode(3);
 
         System.out.println(isSymmetric(root));
+        System.out.println(isSymmetricVer2(root));
         System.out.println();
         System.out.println("\n542. 01 Matrix");
         int[][] mat1 = new int[][]{
@@ -127,6 +128,23 @@ public class tsk4 {
         return roots.size() == 0;
     }
 
+    public static boolean isSymmetricVer2(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(root);
+        while (!q.isEmpty()) {
+            TreeNode t1 = q.poll();
+            TreeNode t2 = q.poll();
+            if (t1 == null && t2 == null) continue;
+            if (t1 == null || t2 == null) return false;
+            if (t1.val != t2.val) return false;
+            q.add(t1.left);
+            q.add(t2.right);
+            q.add(t1.right);
+            q.add(t2.left);
+        }
+        return true;
+    }
     public static int[][] updateMatrix(int[][] mat) {
         int colLen = mat.length;
         int rowLen = mat[0].length;

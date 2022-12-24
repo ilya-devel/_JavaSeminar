@@ -2,13 +2,13 @@ package sem6.Homeworks;
 
 
 public class Reader {
-    String surname;
-    String name;
-    String patronymic;
-    String id_reader;
-    String department;
-    String dateOfBirth;
-    String phoneNumber;
+    private String surname;
+    private String name;
+    private String patronymic;
+    private String id_reader;
+    private String department;
+    private String dateOfBirth;
+    private String phoneNumber;
 
     public Reader(String surname, String name, String patronymic, String id_reader) {
         this.surname = surname;
